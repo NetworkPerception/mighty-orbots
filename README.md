@@ -58,11 +58,66 @@ TBD
 TBD
 
 # 3 Solution Space
-## 3.1 Identifying Components through User Scenarios
+In this section, we describe user personas and usage pattern analysis, which we used to help us make specific architectural choices. Notably, these analyses guided the particular components in our architecture. Subsequently, we specify the priority of order of architectural characteristics, followed by the proposed architectural style.
+
+## 3.1 User Persona Analysis
+TBD
+
+## 3.2 Usage Patterns
 TBD
 
 ## 3.2 Architecture Charactersitics
+**Availability**
+Reason:
+As MonitorMe's primary purpose is to monitor patients' vital signs in real time, any system downtime could delay the detection of critical health issues, leading to potential harm or even fatalities for patients. High availability is also needed to ensure that alerts for abnormal conditions are delivered promptly, enabling healthcare providers to respond quickly in emergencies.
+
+Impact on Architecture:
+Load balancing in the data ingestion module.
+Extract-Load-Transform (ELT) architecture
+
+**Data Integrity**
+Reason:
+Healthcare decisions and diagnoses rely on accurate and reliable patient data. Therefore, the MonitorMe system needs high data integrity, meaning the data across the system must be free from incorrect modification and loss.
+
+Impact on Architecture:
+Data schema and selection of database
+
+**Data Consistency**
+Reason:
+The MonitorMe system must also ensure that the vital sign readings ingested, stored, and displayed reflect the current state of the patient's health. Such consistency is also necessary for informed decision-making and patient safety.
+
+Impact on Architecture:
+Data schema and selection of database
+
+**Fault Tolerance**
+Reason:
+The MonitorMe system should maintain service while facing failures. The primary failure scenario is when one or more vital sign devices or software components fail. It is essential for the MonitorMe system to still function for monitoring, recording, analyzing, and alerting based on the available data.
+
+Impact on Architecture:
+Vital sign timeseries are stored and processed independently of other vital sign signals.
+Ability to detect vital sign failures
+Ability to alert a data/system administrator about the failures
+Ability to seamlessly ingest data after a failed component recovers
+Extract-Load-Transform (ELT) architecture
+
+Note that for MonitorMe to tolerate failures of other hardware and software components, it must consider redundancy and replication at various levels of the system. This requirement could include deploying multiple instances of servers, databases, and other components across different physical locations or availability zones. However, these considerations have little impact on the software architecture. Therefore, we leave the discussion of such deployment considerations to a subsequent section of this document.
+
+**Concurrency**
+Reason:
 TBD
+
+Impact on Architecture:
+TBD
+
+**Performance**
+Reason:
+TBD
+
+Impact on Architecture:
+TBD
+
+Given the Katas Challenge's objectives and our assumptions (discussed in previous sections), we decided to deprioritize interoperability, responsiveness, and scalability in the first iteration of MonitorMe.
+
 
 ## 3.3 Architecture Style
 TBD
