@@ -134,21 +134,21 @@ TBD description.
 ![Comonent Diagram.](/images/Components-Diagram.jpg)
 
 # 5 Detailed Architecture
-## 5.1 Sensor Input Component
+## 5.1 Sensor Input
 TBD
 
 ## 5.2 Vital-Sign Data Storage
 TBD
 
-## 5.3 Transformation Component
+## 5.3 Transformation
 TBD description
 
 ![Sequence Diagram of the Transformation Component.](/images/Seq-Diagram-Transformation.jpg)
 
-## 5.4 Filtering Component
+## 5.4 Filtering
 TBD
 
-## 5.5 Analysis Component
+## 5.5 Analysis
 TBD
 
 ## 5.6 Alert Storage
