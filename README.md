@@ -49,22 +49,27 @@ Provide APIs or interfaces for interoperability with third-party systems and dev
 
 
 ## 2.3 System Requirements
-TBD
+> [!NOTE]
+> TBD
 
 ## 2.4 Users
-TBD
+> [!NOTE]
+> TBD
 
 ## 2.5 Constraints and Assumptions
-TBD
+> [!NOTE]
+> TBD
 
 # 3 Solution Space
 In this section, we describe user personas and usage pattern analysis, which we used to help us make specific architectural choices. Notably, these analyses guided the particular components in our architecture. Subsequently, we specify the priority of order of architectural characteristics, followed by the proposed architectural style.
 
 ## 3.1 User Persona Analysis
-TBD
+> [!NOTE]
+> TBD
 
 ## 3.2 Usage Patterns
-TBD
+> [!NOTE]
+> TBD
 
 ## 3.2 Architecture Charactersitics
 **Availability**
@@ -109,50 +114,67 @@ Note that for MonitorMe to tolerate failures of other hardware and software comp
 **Concurrency**
 
 Reason:
-TBD
+> [!NOTE]
+> TBD
 
 Impact on Architecture:
-TBD
+> [!NOTE]
+> TBD
 
 **Performance**
 
 Reason:
-TBD
+> [!NOTE]
+> TBD
 
 Impact on Architecture:
-TBD
+> [!NOTE]
+> TBD
 
 Given the Katas Challenge's objectives and our assumptions (discussed in previous sections), we decided to deprioritize interoperability, responsiveness, and scalability in the first iteration of MonitorMe.
 
 
 ## 3.3 Architecture Style
-TBD
+> [!NOTE]
+> TBD
 
 # 4 System Architecture
-TBD description.
+> [!NOTE]
+> TBD description
 
 ![Comonent Diagram.](/images/Components-Diagram.jpg)
 
 # 5 Detailed Architecture
 ## 5.1 Sensor Input
-TBD
+> [!NOTE]
+> TBD
 
 ## 5.2 Vital-Sign Data Storage
-TBD
+> [!NOTE]
+> TBD
 
 ## 5.3 Transformation
-TBD description
+> [!NOTE]
+> TBD description
 
 ![Sequence Diagram of the Transformation Component.](/images/Seq-Diagram-Transformation.jpg)
 
 ## 5.4 Filtering
-TBD
+> [!NOTE]
+> TBD
 
 ## 5.5 Analysis
-TBD
+> [!NOTE]
+> TBD
 
 ## 5.6 Alert Storage
-TBD
+> [!NOTE]
+> TBD
 
 ## 5.7 Output Generation
-TBD
+> [!NOTE]
+> TBD
+
+# 6 Architecture Decision Records
+> [!NOTE]
+> TBD
