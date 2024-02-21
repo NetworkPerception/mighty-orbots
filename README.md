@@ -21,18 +21,18 @@ Medical professionals should be able to review patient history, filtering on tim
 
 **Data Analysis and Alerting:**
 The system should analyze each patient's vital signs for abnormalities or preset thresholds.
-It should alert medical professionals if it detects issues such as a decrease in oxygen level or reaching preset thresholds like a temperature of 104 degrees F.
+It should alert medical professionals if it detects issues such as a decrease in oxygen level or reaching preset thresholds like a temperature of 104<sup>o</sup> F.
 Alerts should be timely and configurable to meet the needs of medical staff.
+
+**User Interface and Interaction:**
+MonitorMe should provide an intuitive user interface for medical professionals to interact with the system.
+It should allow medical staff to configure alert thresholds, view patient data, and access historical records.
+
+## 2.2 Additional Requirements
 
 **Fault Tolerance and High Availability:**
 MonitorMe should remain operational even if individual vital sign devices or components fail.
 It should implement high-availability mechanisms to minimize downtime and ensure continuous monitoring and alerting services.
-
-
-## 2.2 Additional Requirements
-**User Interface and Interaction:**
-MonitorMe should provide an intuitive user interface for medical professionals to interact with the system.
-It should allow medical staff to configure alert thresholds, view patient data, and access historical records.
 
 **Security:**
 Although not required in the first iteration, MonitorMe should meet high data security and privacy standards in the future.
@@ -74,64 +74,60 @@ In this section, we describe user personas and usage pattern analysis, which we 
 ## 3.2 Architecture Charactersitics
 **Availability**
 
-Reason:
+<ins>Reason:</ins>
 As MonitorMe's primary purpose is to monitor patients' vital signs in real time, any system downtime could delay the detection of critical health issues, leading to potential harm or even fatalities for patients. High availability is also needed to ensure that alerts for abnormal conditions are delivered promptly, enabling healthcare providers to respond quickly in emergencies.
 
-Impact on Architecture:
-Load balancing in the data ingestion module.
-Extract-Load-Transform (ELT) architecture
+<ins>Impact on Architecture:</ins>
+* We have added provision for load balancing in the data ingestion module.
+* We have adopted Extract-Load-Transform (ELT) architecture.
 
 **Data Integrity**
 
-Reason:
-Healthcare decisions and diagnoses rely on accurate and reliable patient data. Therefore, the MonitorMe system needs high data integrity, meaning the data across the system must be free from incorrect modification and loss.
+<ins>Reason:</ins>
+Healthcare decisions and diagnoses rely on accurate and reliable patient data. Therefore, MonitorMe needs high data integrity, meaning the data across the system must be free from incorrect modification and loss.
 
-Impact on Architecture:
-Data schema and selection of database
+<ins>Impact on Architecture:</ins>
+* We have adopted a central database that adheres to ACID properties.
 
 **Data Consistency**
 
-Reason:
+<ins>Reason:</ins>
 The MonitorMe system must also ensure that the vital sign readings ingested, stored, and displayed reflect the current state of the patient's health. Such consistency is also necessary for informed decision-making and patient safety.
 
-Impact on Architecture:
-Data schema and selection of database
+<ins>Impact on Architecture:</ins>
+* We have adopted a central database that adheres to ACID properties.
 
 **Fault Tolerance**
 
-Reason:
+<ins>Reason:</ins>
 The MonitorMe system should maintain service while facing failures. The primary failure scenario is when one or more vital sign devices or software components fail. It is essential for the MonitorMe system to still function for monitoring, recording, analyzing, and alerting based on the available data.
 
-Impact on Architecture:
-Vital sign timeseries are stored and processed independently of other vital sign signals.
-Ability to detect vital sign failures
-Ability to alert a data/system administrator about the failures
-Ability to seamlessly ingest data after a failed component recovers
-Extract-Load-Transform (ELT) architecture
+<ins>Impact on Architecture:</ins>
+* We store and process each vital sign timeseries independently of other vital sign signals.
+* We have designed for the ability to detect vital sign failures and the ability to alert a data/system administrator about the failures.
+* We have also incorporated an ability to seamlessly ingest data after a failed component recovers, which essentially uses the ELT architecture.
 
-Note that for MonitorMe to tolerate failures of other hardware and software components, it must consider redundancy and replication at various levels of the system. This requirement could include deploying multiple instances of servers, databases, and other components across different physical locations or availability zones. However, these considerations have little impact on the software architecture. Therefore, we leave the discussion of such deployment considerations to a subsequent section of this document.
+> Note that for MonitorMe to tolerate failures of other hardware and software components, it must consider redundancy and replication at various levels of the system. This requirement could include deploying multiple instances of servers, databases, and other components across different physical locations or availability zones. However, these considerations have little impact on the software architecture. Therefore, we leave the discussion of such deployment considerations to a subsequent section of this document.
 
 **Concurrency**
 
-Reason:
-> [!NOTE]
-> TBD
+<ins>Reason:</ins>
+MonitorMe needs to read, store, and process data from multiple monitoring sources across multiple patients. Therefore, it is necessary to design components to handle concurrent operations and improve performance.
 
-Impact on Architecture:
-> [!NOTE]
-> TBD
+<ins>Impact on Architecture:</ins>
+* We have adopted a microservice architecture for data ingestion and analysis components.
 
 **Performance**
 
-Reason:
-> [!NOTE]
-> TBD
+<ins>Reason:</ins>
+The system should process both on-demand and continuous requests very quickly. Specifically, as the problem statement states, MonitorMe should send "the data to a consolidated monitoring screen (per nurses station) with an average response time of 1 second or less".
 
-Impact on Architecture:
-> [!NOTE]
-> TBD
+<ins>Impact on Architecture:</ins>
+* We have chosen a central database.
+* We have adopted interactions to be asynchronous where a response is not needed.
+* We have designed the most process intesive modules to handle concurrent requests.
 
-Given the Katas Challenge's objectives and our assumptions (discussed in previous sections), we decided to deprioritize interoperability, responsiveness, and scalability in the first iteration of MonitorMe.
+> Given the Katas Challenge's objectives and our assumptions (discussed in previous sections), we have decided to deprioritize interoperability, responsiveness, and scalability in the first iteration of MonitorMe.
 
 
 ## 3.3 Architecture Style
