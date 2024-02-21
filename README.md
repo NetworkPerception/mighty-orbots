@@ -1,5 +1,5 @@
 # 1 Welcome to MightyOrbots
-Repository for NP's O'Reilly 2024 Architectural Kata Challenge
+Repository MightyOrbots' solution to O'Reilly 2024 Architectural Kata Challenge.
 
 # 2 Problem Space
 ## 2.1 Functional Requirements
@@ -68,6 +68,7 @@ TBD
 
 ## 3.2 Architecture Charactersitics
 **Availability**
+
 Reason:
 As MonitorMe's primary purpose is to monitor patients' vital signs in real time, any system downtime could delay the detection of critical health issues, leading to potential harm or even fatalities for patients. High availability is also needed to ensure that alerts for abnormal conditions are delivered promptly, enabling healthcare providers to respond quickly in emergencies.
 
@@ -76,6 +77,7 @@ Load balancing in the data ingestion module.
 Extract-Load-Transform (ELT) architecture
 
 **Data Integrity**
+
 Reason:
 Healthcare decisions and diagnoses rely on accurate and reliable patient data. Therefore, the MonitorMe system needs high data integrity, meaning the data across the system must be free from incorrect modification and loss.
 
@@ -83,6 +85,7 @@ Impact on Architecture:
 Data schema and selection of database
 
 **Data Consistency**
+
 Reason:
 The MonitorMe system must also ensure that the vital sign readings ingested, stored, and displayed reflect the current state of the patient's health. Such consistency is also necessary for informed decision-making and patient safety.
 
@@ -90,6 +93,7 @@ Impact on Architecture:
 Data schema and selection of database
 
 **Fault Tolerance**
+
 Reason:
 The MonitorMe system should maintain service while facing failures. The primary failure scenario is when one or more vital sign devices or software components fail. It is essential for the MonitorMe system to still function for monitoring, recording, analyzing, and alerting based on the available data.
 
@@ -103,6 +107,7 @@ Extract-Load-Transform (ELT) architecture
 Note that for MonitorMe to tolerate failures of other hardware and software components, it must consider redundancy and replication at various levels of the system. This requirement could include deploying multiple instances of servers, databases, and other components across different physical locations or availability zones. However, these considerations have little impact on the software architecture. Therefore, we leave the discussion of such deployment considerations to a subsequent section of this document.
 
 **Concurrency**
+
 Reason:
 TBD
 
@@ -110,6 +115,7 @@ Impact on Architecture:
 TBD
 
 **Performance**
+
 Reason:
 TBD
 
