@@ -127,3 +127,32 @@ Given the Katas Challenge's objectives and our assumptions (discussed in previou
 
 ## 3.3 Architecture Style
 TBD
+
+# 4 System Architecture
+TBD description.
+
+![Comonent Diagram.](/images/Components-Diagram.jpg)
+
+# 5 Detailed Architecture
+## 5.1 Sensor Input Component
+TBD
+
+## 5.2 Vital-Sign Data Storage
+TBD
+
+## 5.3 Transformation Component
+TBD description
+
+![Sequence Diagram of the Transformation Component.](/images/Seq-Diagram-Transformation.jpg)
+
+## 5.4 Filtering Component
+TBD
+
+## 5.5 Analysis Component
+TBD
+
+## 5.6 Alert Storage
+TBD
+
+## 5.7 Output Generation
+TBD
