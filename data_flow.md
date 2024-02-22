@@ -21,7 +21,7 @@
 - The monitor looks at a given alert, looks up the notification rules, and triggers the events based on the setup (i.e., send a message to the Consolidated Nurse Screen as well as a message to the StayHealthy app for a given doctor).
 
 
-## Considered data structures
+## Considered Data Structures
 **Rule:**
 - Patient to apply rule to
 - List of sensors involved in rule
