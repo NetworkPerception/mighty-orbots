@@ -143,7 +143,7 @@ We recommend a combination of microservice and event-driven architecture styles.
 * Event-driven architecture will enable real-time capabilities. Various components can subscribe to events and receive them as aynchronous messages. For instance, when vital sign data for a patient is ready for display at a nurse station, it can be delivered to output generation modules via an asynchronous message, allowing a non-blocking output handling.
 * In order to meet the data consistency requirement and minimize data sharing among various microservices, we adopt a single shared database to store patient monitoring data. The central database is also suitable because MonitorMe does not need data isolation or very high scalability.
 
-# 4 System Architecture
+# 4 System Architecture: Components
 Based on the [user persona](./README.md#31-user-persona-analysis) and [usage patterns](./README.md#32-usage-patterns) analyses, we have broken system architecture into four high-level components:
 1. **Data Acquisition**:
      - Interfaces with the various monitoring devices to retrieve real-time data on vital signs.
@@ -162,7 +162,7 @@ Based on the [user persona](./README.md#31-user-persona-analysis) and [usage pat
 
 ![Comonent Diagram.](/images/Components-Diagram.jpg)
 
-# 5 System Data Flow
+# 5 System Architecture: Data Flow
 ## 5.1 Data Flow
 
 1. Sensors produce data for their given type (HR, temp, etc.)
