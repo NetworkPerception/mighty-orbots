@@ -55,8 +55,13 @@ Provide APIs or interfaces for interoperability with third-party systems and dev
 * 
 
 ## 2.4 Users
-> [!NOTE]
-> TBD
+
+| User Role  | Actions |
+| ------------- | ------------- |
+| Nurse | - Add patient<br>- Update patient<br>- Remove patient<br>- View specific patient<br>- View room status<br>- View sensor status<br>- View all patients<br>- Acknowledge notification<br>- Setup notification |
+| Medical Professional | -Generate report<br>- Generate patient history |
+| Doctor | - Acknowledge notification<br>- Setup notification  |
+| Technical System Admin | -Review hardware status<br>- Update software version<br>- Review database health<br>- Review uptime |
 
 ## 2.5 Constraints and Assumptions
 > [!NOTE]
