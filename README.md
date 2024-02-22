@@ -1,8 +1,18 @@
-# 1 Welcome to MightyOrbots
+# Table of Contents
+- [1.  Welcome to MightyOrbots](README.md#1-welcome-to-mightyorbots)
+- [2.  Problem Space](README.md#2-problem-space)
+- [3.  Solution Space](README.md#3-solution-space)
+- [4.  System Architecture: Components](README.md#4-system-architecture-components)
+- [5.  System Architecture: Data Flow](README.md#5-system-architecture-data-flow)
+- [6.  Detailed Architecture](README.md#6-detailed-architecture)
+- [7.  Architecture Decision Records](README.md#6-architecture-decision-records)
+
+
+# 1.  Welcome to MightyOrbots
 Repository MightyOrbots' solution to O'Reilly 2024 Architectural Kata Challenge.
 
-# 2 Problem Space
-## 2.1 Functional Requirements
+# 2.  Problem Space
+## 2.1  Functional Requirements
 From the problem statement, we extracted the following core requirements to guide our proposed architecture for the MonitorMe system.
 
 **Data Ingestion:**
@@ -28,7 +38,7 @@ Alerts should be timely and configurable to meet the needs of medical staff.
 MonitorMe should provide an intuitive user interface for medical professionals to interact with the system.
 It should allow medical staff to configure alert thresholds, view patient data, and access historical records.
 
-## 2.2 Additional Requirements
+## 2.2  Additional Requirements
 
 **Fault Tolerance and High Availability:**
 MonitorMe should remain operational even if individual vital sign devices or components fail.
@@ -48,13 +58,13 @@ Support integration with existing healthcare systems and other medical software 
 Provide APIs or interfaces for interoperability with third-party systems and devices.
 
 
-## 2.3 System Requirements
+## 2.3  System Requirements
 > [!NOTE]
 > TBD
 * Data acquisition may involve protocols like Bluetooth, Wi-Fi, or specialized medical device interfaces to communicate with the monitoring equipment.
 * 
 
-## 2.4 Users
+## 2.4  Users
 
 | User Role  | Actions |
 | ------------- | ------------- |
@@ -63,22 +73,22 @@ Provide APIs or interfaces for interoperability with third-party systems and dev
 | Doctor | - Acknowledge notification<br>- Setup notification  |
 | Technical System Admin | -Review hardware status<br>- Update software version<br>- Review database health<br>- Review uptime |
 
-## 2.5 Constraints and Assumptions
+## 2.5  Constraints and Assumptions
 > [!NOTE]
 > TBD
 
-# 3 Solution Space
+# 3.  Solution Space
 In this section, we describe user personas and usage pattern analysis, which we used to help us make specific architectural choices. Notably, these analyses guided the particular components in our architecture. Subsequently, we specify the priority of order of architectural characteristics, followed by the proposed architectural style.
 
-## 3.1 User Persona Analysis
+## 3.1  User Persona Analysis
 > [!NOTE]
 > TBD
 
-## 3.2 Usage Patterns
+## 3.2  Usage Patterns
 > [!NOTE]
 > TBD
 
-## 3.2 Architecture Characteristics
+## 3.2  Architecture Characteristics
 **Availability**
 
 <ins>Reason:</ins>
@@ -137,13 +147,13 @@ The system should process both on-demand and continuous requests very quickly. S
 > Given the Katas Challenge's objectives and our assumptions (discussed in previous sections), we have decided to deprioritize interoperability, responsiveness, and scalability in the first iteration of MonitorMe.
 
 
-## 3.3 Architecture Style
+## 3.3  Architecture Style
 We recommend a combination of microservice and event-driven architecture styles.
 * Microservice architecture will allow keeping services of the system discrete, enabling fault tolerance and high availability.
 * Event-driven architecture will enable real-time capabilities. Various components can subscribe to events and receive them as aynchronous messages. For instance, when vital sign data for a patient is ready for display at a nurse station, it can be delivered to output generation modules via an asynchronous message, allowing a non-blocking output handling.
 * In order to meet the data consistency requirement and minimize data sharing among various microservices, we adopt a single shared database to store patient monitoring data. The central database is also suitable because MonitorMe does not need data isolation or very high scalability.
 
-# 4 System Architecture: Components
+# 4.  System Architecture: Components
 Based on the [user persona](./README.md#31-user-persona-analysis) and [usage patterns](./README.md#32-usage-patterns) analyses, we have broken system architecture into four high-level components:
 1. **Data Acquisition**:
      - Interfaces with the various monitoring devices to retrieve real-time data on vital signs.
@@ -162,8 +172,8 @@ Based on the [user persona](./README.md#31-user-persona-analysis) and [usage pat
 
 ![Comonent Diagram.](/images/Components-Diagram.jpg)
 
-# 5 System Architecture: Data Flow
-## 5.1 Data Flow
+# 5.  System Architecture: Data Flow
+## 5.1  Data Flow
 
 1. Sensors produce data for their given type (HR, temp, etc.)
 2. Sensors are physically connected to an in-room hub that displays data at the bedside, but they also have the ability to send sensor data along. However, they tag the sensor data with their hub ID and send it along. This way, anytime the hub receives updated data, it sends it along.
@@ -174,7 +184,7 @@ Based on the [user persona](./README.md#31-user-persona-analysis) and [usage pat
 7. Notification issuer is watching alert database. When one comes in, it looks up rule, gets notification and UI/text information and creates the needed output to cause events (fires data to nurses station, triggers notification on screen, etc.)
 8. NOTE: under this setup, it is possible a rule could be created to just update the Coordinated Station screen.
 
-## 5.2 Microservice Descriptions
+## 5.2  Microservice Descriptions
 
 **Patient Alert Monitor:**
 - Monitors raw sensor pool to compare incoming data with existing rules, looking to check completely the set of sensor data for a given rule/patient. If a given rule for a patient has a changed set of sensor data, a task is created to verify the rule.
@@ -186,7 +196,7 @@ Based on the [user persona](./README.md#31-user-persona-analysis) and [usage pat
 - The monitor looks at a given alert, looks up the notification rules, and triggers the events based on the setup (i.e., send a message to the Consolidated Nurse Screen as well as a message to the StayHealthy app for a given doctor).
 
 
-## 5.3 Considered Data Structures
+## 5.3  Considered Data Structures
 **Rule:**
 - Patient to apply rule to
 - List of sensors involved in rule
@@ -204,8 +214,8 @@ Based on the [user persona](./README.md#31-user-persona-analysis) and [usage pat
 ![Data Flow Diagram.](/images/dataFlowDiagram.png)
 
 
-# 6 Detailed Architecture
-## 6.1 Sensor Input
+# 6.  Detailed Architecture
+## 6.1  Sensor Input
 **Objective:**
 * The system must support multiple sensors, be able to submit the information to a central system, and be able to detect & report on various sensor failures.
 * In addition, as many sensor types must be supported.
@@ -226,11 +236,11 @@ Based on the [user persona](./README.md#31-user-persona-analysis) and [usage pat
 
 The data is then pushed into the Vital-Sign Data Storage to be used by further steps.
 
-## 6.2 Vital-Sign Data Storage
+## 6.2  Vital-Sign Data Storage
 > [!NOTE]
 > TBD
 
-## 6.3 Transformation
+## 6.3  Transformation
 **Objective:** Transform stored monitoring data for display at nurse screens as continuous streams.
 
 **Inputs:**
@@ -251,11 +261,11 @@ The data is then pushed into the Vital-Sign Data Storage to be used by further s
 
 ![Sequence Diagram of the Transformation Component.](/images/Seq-Diagram-Transformation.jpg)
 
-## 6.4 Filtering
+## 6.4  Filtering
 > [!NOTE]
 > TBD
 
-## 6.5 Analysis
+## 6.5  Analysis
 The analysis is split into two main microservices, utilizing the Rule and Vital-Sign data to create alerts when applicable:
 
 **Patient Rule Monitor:**
@@ -266,14 +276,14 @@ Once a rule is determined to be checked, the Rule Alert Processor will analyze t
 
 In addition, should UX determine alerts need to be deduped or checked for confirmation, that logic would also be added to the Rule Alert Processor.
 
-## 6.6 Alert Storage
+## 6.6  Alert Storage
 > [!NOTE]
 > TBD
 
-## 6.7 Output Generation
+## 6.7  Output Generation
 > [!NOTE]
 > TBD
 
-# 7 Architecture Decision Records
+# 7.  Architecture Decision Records
 > [!NOTE]
 > TBD
