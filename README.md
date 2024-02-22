@@ -285,5 +285,5 @@ In addition, should UX determine alerts need to be deduped or checked for confir
 > TBD
 
 # 7.  Architecture Decision Records
-1. [Sensor Hub ADR](../adr/sensor_hub.md)
-2. [Database Choice ADR](../adr/database_choice.md)
+1. [Sensor Hub ADR](/adr/sensor_hub.md)
+2. [Database Choice ADR](/adr/database_choice.md)
