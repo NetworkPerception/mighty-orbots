@@ -139,7 +139,7 @@ We recommend a combination of microservice and event-driven architecture styles.
 * In order to meet the data consistency requirement and minimize data sharing among various microservices, we adopt a single shared database to store patient monitoring data. The central database is also suitable because MonitorMe does not need data isolation or very high scalability.
 
 # 4 System Architecture
-Based on the [user persona](./README.md#31-user-persona-analysis) and [usage patterns](README.md#33-usage-patterns) analyses, we have broken system architecture into three high-level components:
+Based on the [user persona](./README.md#31-user-persona-analysis) and [usage patterns](./README.md#32-usage-patterns) analyses, we have broken system architecture into three high-level components:
 1. **Data Acquisition**:
      - Interfaces with the various monitoring devices to retrieve real-time data on vital signs.
      - Ensures reliable and continuous data acquisition from all sources, handling potential errors or disruptions gracefully.
