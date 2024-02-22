@@ -1,11 +1,11 @@
 # Table of Contents
-- [1.  Welcome to MightyOrbots](README.md#1-welcome-to-mightyorbots)
-- [2.  Problem Space](README.md#2-problem-space)
-- [3.  Solution Space](README.md#3-solution-space)
-- [4.  System Architecture: Components](README.md#4-system-architecture-components)
-- [5.  System Architecture: Data Flow](README.md#5-system-architecture-data-flow)
-- [6.  Detailed Architecture](README.md#6-detailed-architecture)
-- [7.  Architecture Decision Records](README.md#6-architecture-decision-records)
+- [1.  Welcome to MightyOrbots](#1--welcome-to-mightyorbots)
+- [2.  Problem Space](#2--problem-space)
+- [3.  Solution Space](#3--solution-space)
+- [4.  System Architecture: Components](#4--system-architecture-components)
+- [5.  System Architecture: Data Flow](#5--system-architecture-data-flow)
+- [6.  Detailed Architecture](#6--detailed-architecture)
+- [7.  Architecture Decision Records](#7--architecture-decision-records)
 
 
 # 1.  Welcome to MightyOrbots
