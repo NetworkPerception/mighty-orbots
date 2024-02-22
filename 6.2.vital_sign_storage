@@ -1,0 +1,25 @@
+## Vital Sign Data Model
+### Data Ingestion
+The vital signs are stored in a time series database on the idea of tags, which represent different types of values measured by sensors (i.e. a temperature  or blood pressure).
+A data record consists of one tag name (sensor type) and multiple datapoints, each comprised of a timestamp (time) and a measurement (value). 
+The overall record can contain multiple attributes (key/value pairs) describing the asset. 
+Some sensors like the ECG will be more complex than other more simple sensors and additional options and attributes could be added.
+
+![Vital Sign Data Model](/images/vital_sign_data_model.png)
+*Figure: Time Series Data Model*
+
+| Term | Definition |
+| ------------- | ---------- |
+| Tag name | (Required) Name of the tag (for example Temperature). This is not a unique value, and typically numerous sensors of the same type will share this same tag name. The sensor id is stored as an attribute in the Attributes section.|
+| Timestamp | (Required) The date and time in UNIX epoch time, with millisecond precision.|
+| Measurement|(Required) The value produced from the sensor. Does not include the unit of measurement.|
+|Attribute| Key/Value pairs used to store data associated with a tag. Some mandatory ones are the hub id, room id, patient id and sensor id. Other optional ones could be added for more complex sensor types, like ECG.|
+  *Table: Time Series Data Model Structure*
+  
+  ### Data Consumption
+  The database typically provides REST APIS for querying and aggregating time series data allowing to:
+    - query data specifying tags and a time window
+    - filter by attribute values
+    retrieve all tags and attribute keys from the time series database
+    - add aggregates and interpolate data points in a given time window
+    - query the time series database for the latest values
