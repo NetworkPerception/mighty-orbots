@@ -172,8 +172,23 @@ Based on the [user persona](./README.md#31-user-persona-analysis) and [usage pat
 > TBD
 
 ## 5.3 Transformation
-> [!NOTE]
-> TBD description
+**Objective:** Transform stored monitoring data for display at nurse screens as continuous streams.
+
+**Inputs:**
+
+| Input | Retrieval Process |
+| ------------- | ------------- |
+| All nurse-screen IDs | Event-driven: subscribe to an event that is generated every time there is a change in active nurse screens in the database  |
+| All patient IDs for a specific screen | Database query: a time-based query decided by its business logic |
+
+**Processing available nurse-screens:**
+* This module keeps a local copy of active nurse screen IDs, expected to change infrequently. The transformation module runs concurrent threads to independently read and transform data for each screen.
+* Any change to the set of active nurse screens should be notified to this module. On such a notification, all the nurse-screen threads are restarted.
+
+**Data transformation logic:**
+* The primary goal of data transformation is to serve the most recent data to the output generation modules. For this reason, the transformation logic iterates over all patients associated with a specific screen to read and pass data onto the output generation modules.
+* The response time of processing a patient's data is on the order of sub-second. At the same time, a given patient's data is displayed for five seconds. Therefore, it is sufficient to process all patients sequentially and even more suitable for providing the most recent data on screen.
+
 
 ![Sequence Diagram of the Transformation Component.](/images/Seq-Diagram-Transformation.jpg)
 
