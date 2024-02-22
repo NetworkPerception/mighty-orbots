@@ -9,7 +9,7 @@
 7. Notification issuer is watching alert database. When one comes in, it looks up rule, gets notification and UI/text information and creates the needed output to cause events (fires data to nurses station, triggers notification on screen, etc.)
 8. NOTE: under this setup, it is possible a rule could be created to just update the Coordinated Station screen.
 
-## Microservice descriptions
+## Microservice Descriptions
 
 **Patient Alert Monitor:**
 - Monitors raw sensor pool to compare incoming data with existing rules, looking to check completely the set of sensor data for a given rule/patient. If a given rule for a patient has a changed set of sensor data, a task is created to verify the rule.
