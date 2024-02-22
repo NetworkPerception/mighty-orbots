@@ -162,16 +162,21 @@ Based on the [user persona](./README.md#31-user-persona-analysis) and [usage pat
 
 ![Comonent Diagram.](/images/Components-Diagram.jpg)
 
-# 5 Detailed Architecture
-## 5.1 Sensor Input
+# 5 System Data Flow
+
+```{include} data_flow.md
+```
+
+# 6 Detailed Architecture
+## 6.1 Sensor Input
 > [!NOTE]
 > TBD
 
-## 5.2 Vital-Sign Data Storage
+## 6.2 Vital-Sign Data Storage
 > [!NOTE]
 > TBD
 
-## 5.3 Transformation
+## 6.3 Transformation
 **Objective:** Transform stored monitoring data for display at nurse screens as continuous streams.
 
 **Inputs:**
@@ -192,22 +197,22 @@ Based on the [user persona](./README.md#31-user-persona-analysis) and [usage pat
 
 ![Sequence Diagram of the Transformation Component.](/images/Seq-Diagram-Transformation.jpg)
 
-## 5.4 Filtering
+## 6.4 Filtering
 > [!NOTE]
 > TBD
 
-## 5.5 Analysis
+## 6.5 Analysis
 > [!NOTE]
 > TBD
 
-## 5.6 Alert Storage
+## 6.6 Alert Storage
 > [!NOTE]
 > TBD
 
-## 5.7 Output Generation
+## 6.7 Output Generation
 > [!NOTE]
 > TBD
 
-# 6 Architecture Decision Records
+# 7 Architecture Decision Records
 > [!NOTE]
 > TBD
