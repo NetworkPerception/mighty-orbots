@@ -51,6 +51,8 @@ Provide APIs or interfaces for interoperability with third-party systems and dev
 ## 2.3 System Requirements
 > [!NOTE]
 > TBD
+* Data acquisition may involve protocols like Bluetooth, Wi-Fi, or specialized medical device interfaces to communicate with the monitoring equipment.
+* 
 
 ## 2.4 Users
 > [!NOTE]
@@ -137,8 +139,17 @@ We recommend a combination of microservice and event-driven architecture styles.
 * In order to meet the data consistency requirement and minimize data sharing among various microservices, we adopt a single shared database to store patient monitoring data. The central database is also suitable because MonitorMe does not need data isolation or very high scalability.
 
 # 4 System Architecture
-> [!NOTE]
-> TBD description
+Based on the [user persona](./README.md#31-user-persona-analysis) and [usage patterns](README.md#33-usage-patterns) analyses, we have broken system architecture into three high-level components:
+1. **Data Acquisition**:
+     - Interfaces with the various monitoring devices to retrieve real-time data on vital signs.
+     - Ensures reliable and continuous data acquisition from all sources, handling potential errors or disruptions gracefully.
+3. **Data Processing**:
+     - Receives the raw vital sign data collected by the data acquisition component, stores, and processes it for further analysis.
+     - Includes tasks such as data normalization, validation, aggregation, and analysis to derive meaningful insights from the raw data.
+     - Performs real-time analysis to detect abnormalities or threshold violations in vital sign readings, triggering alerts for medical professionals.
+5. **Output Generation**:
+     - Responsible for presenting the processed vital sign data to various output receivers in a user-friendly format.
+     - Includes functionalities such as displaying vital signs on monitoring screens at nurses' stations, generating historical reports, and sending alerts to medical staff.
 
 ![Comonent Diagram.](/images/Components-Diagram.jpg)
 
