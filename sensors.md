@@ -1,4 +1,4 @@
-**Objectives:**
+**Objective:**
 * The system must support multiple sensors, be able to submit the information to a central system, and be able to detect & report on various sensor failures.
 * In addition, as many sensor types must be supported.
 * All of the requested data is simple, other than ECG.
