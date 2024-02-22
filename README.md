@@ -131,8 +131,10 @@ The system should process both on-demand and continuous requests very quickly. S
 
 
 ## 3.3 Architecture Style
-> [!NOTE]
-> TBD
+We recommend a combination of microservice and event-driven architecture styles.
+* Microservice architecture will allow keeping services of the system discrete, enabling fault tolerance and high availability.
+* Event-driven architecture will enable real-time capabilities. Various components can subscribe to events and receive them as aynchronous messages. For instance, when vital sign data for a patient is ready for display at a nurse station, it can be delivered to output generation modules via an asynchronous message, allowing a non-blocking output handling.
+* In order to meet the data consistency requirement and minimize data sharing among various microservices, we adopt a single shared database to store patient monitoring data. The central database is also suitable because MonitorMe does not need data isolation or very high scalability.
 
 # 4 System Architecture
 > [!NOTE]
