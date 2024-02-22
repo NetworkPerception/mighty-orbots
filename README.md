@@ -173,6 +173,8 @@ Based on the [user persona](#31--user-persona-analysis) and [usage patterns](#32
 ![Comonent Diagram.](/images/Components-Diagram.jpg)
 
 # 5.  System Architecture: Data Flow
+![Data Flow Diagram.](/images/DataFlowDiagram.png)
+
 ## 5.1  Data Flow
 
 1. Sensors produce data for their given type (HR, temp, etc.)
@@ -210,8 +212,6 @@ Based on the [user persona](#31--user-persona-analysis) and [usage patterns](#32
 - IDs of sensor data that were used to calculate alert
 - Notification targets when rule was triggered
 - Notified (bool)
-
-![Data Flow Diagram.](/images/dataFlowDiagram.png)
 
 
 # 6.  Detailed Architecture
