@@ -143,7 +143,7 @@ We recommend a combination of microservice and event-driven architecture styles.
 * Event-driven architecture will enable real-time capabilities. Various components can subscribe to events and receive them as aynchronous messages. For instance, when vital sign data for a patient is ready for display at a nurse station, it can be delivered to output generation modules via an asynchronous message, allowing a non-blocking output handling.
 * In order to meet the data consistency requirement and minimize data sharing among various microservices, we adopt a single shared database to store patient monitoring data. The central database is also suitable because MonitorMe does not need data isolation or very high scalability.
 
-# 4 System Architecture
+# 4 System Architecture: Components
 Based on the [user persona](./README.md#31-user-persona-analysis) and [usage patterns](./README.md#32-usage-patterns) analyses, we have broken system architecture into four high-level components:
 1. **Data Acquisition**:
      - Interfaces with the various monitoring devices to retrieve real-time data on vital signs.
@@ -162,16 +162,58 @@ Based on the [user persona](./README.md#31-user-persona-analysis) and [usage pat
 
 ![Comonent Diagram.](/images/Components-Diagram.jpg)
 
-# 5 Detailed Architecture
-## 5.1 Sensor Input
+# 5 System Architecture: Data Flow
+## 5.1 Data Flow
+
+1. Sensors produce data for their given type (HR, temp, etc.)
+2. Sensors are physically connected to an in-room hub that displays data at the bedside, but they also have the ability to send sensor data along. However, they tag the sensor data with their hub ID and send it along. This way, anytime the hub receives updated data, it sends it along.
+3. The receiving end has a load balancing setup with redundancy such that the data is always received in a timely manner and one connection will not take the data down.
+4. Ingestion pool takes the sensor data and applies a canonical timestamp (and any other information we might think is non-mutable) and puts the data into the sensor database, with one entry per sensor, containing the timestamp and the hub ID.
+5. A pool of rule monitors is watching the sensor database, querying repeatedly based on all of the rules in the rule database. When a complete new set of rule data is found, it creates a rule task.
+6. Either on demand or from a pool, a rule alert processor takes the task and sees if the current sensor data triggers the rule. If it does, it triggers an alert.
+7. Notification issuer is watching alert database. When one comes in, it looks up rule, gets notification and UI/text information and creates the needed output to cause events (fires data to nurses station, triggers notification on screen, etc.)
+8. NOTE: under this setup, it is possible a rule could be created to just update the Coordinated Station screen.
+
+## 5.2 Microservice Descriptions
+
+**Patient Alert Monitor:**
+- Monitors raw sensor pool to compare incoming data with existing rules, looking to check completely the set of sensor data for a given rule/patient. If a given rule for a patient has a changed set of sensor data, a task is created to verify the rule.
+
+**Alert Rule Processor:**
+- The processor takes a set of sensor data for a given patient and a rule and does the processing to determine if the rule is triggered. If it is, it generates an alert and puts it into the alert queue/database.
+
+**Notification Monitors:**
+- The monitor looks at a given alert, looks up the notification rules, and triggers the events based on the setup (i.e., send a message to the Consolidated Nurse Screen as well as a message to the StayHealthy app for a given doctor).
+
+
+## 5.3 Considered Data Structures
+**Rule:**
+- Patient to apply rule to
+- List of sensors involved in rule
+- Rule logic
+- Rule notification settings
+- Rule UI/text info (human readable alert, i.e. “Afib detected in ECG”)
+
+**Alert:**
+- Rule ID for rule that was triggered
+- Timestamp when alert was triggered
+- IDs of sensor data that were used to calculate alert
+- Notification targets when rule was triggered
+- Notified (bool)
+
+![Data Flow Diagram.](/images/dataFlowDiagram.png)
+
+
+# 6 Detailed Architecture
+## 6.1 Sensor Input
 > [!NOTE]
 > TBD
 
-## 5.2 Vital-Sign Data Storage
+## 6.2 Vital-Sign Data Storage
 > [!NOTE]
 > TBD
 
-## 5.3 Transformation
+## 6.3 Transformation
 **Objective:** Transform stored monitoring data for display at nurse screens as continuous streams.
 
 **Inputs:**
@@ -192,22 +234,22 @@ Based on the [user persona](./README.md#31-user-persona-analysis) and [usage pat
 
 ![Sequence Diagram of the Transformation Component.](/images/Seq-Diagram-Transformation.jpg)
 
-## 5.4 Filtering
+## 6.4 Filtering
 > [!NOTE]
 > TBD
 
-## 5.5 Analysis
+## 6.5 Analysis
 > [!NOTE]
 > TBD
 
-## 5.6 Alert Storage
+## 6.6 Alert Storage
 > [!NOTE]
 > TBD
 
-## 5.7 Output Generation
+## 6.7 Output Generation
 > [!NOTE]
 > TBD
 
-# 6 Architecture Decision Records
+# 7 Architecture Decision Records
 > [!NOTE]
 > TBD
