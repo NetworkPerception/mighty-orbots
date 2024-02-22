@@ -88,7 +88,7 @@ In this section, we describe user personas and usage pattern analysis, which we 
 > [!NOTE]
 > TBD
 
-## 3.2  Architecture Characteristics
+## 3.3  Architecture Characteristics
 **Availability**
 
 <ins>Reason:</ins>
@@ -147,7 +147,7 @@ The system should process both on-demand and continuous requests very quickly. S
 > Given the Katas Challenge's objectives and our assumptions (discussed in previous sections), we have decided to deprioritize interoperability, responsiveness, and scalability in the first iteration of MonitorMe.
 
 
-## 3.3  Architecture Style
+## 3.4  Architecture Style
 We recommend a combination of microservice and event-driven architecture styles.
 * Microservice architecture will allow keeping services of the system discrete, enabling fault tolerance and high availability.
 * Event-driven architecture will enable real-time capabilities. Various components can subscribe to events and receive them as aynchronous messages. For instance, when vital sign data for a patient is ready for display at a nurse station, it can be delivered to output generation modules via an asynchronous message, allowing a non-blocking output handling.
