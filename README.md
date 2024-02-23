@@ -209,7 +209,7 @@ As MonitorMe's primary purpose is to monitor patients' vital signs in real time,
 Healthcare decisions and diagnoses rely on accurate and reliable patient data. Therefore, MonitorMe needs high data integrity, meaning the data across the system must be free from incorrect modification and loss.
 
 <ins>Impact on Architecture:</ins>
-* We have adopted a central database that adheres to ACID properties.
+* We have adopted shared databases that adhere to ACID properties.
 
 ### Data Consistency
 
@@ -217,7 +217,7 @@ Healthcare decisions and diagnoses rely on accurate and reliable patient data. T
 The MonitorMe system must also ensure that the vital sign readings ingested, stored, and displayed reflect the current state of the patient's health. Such consistency is also necessary for informed decision-making and patient safety.
 
 <ins>Impact on Architecture:</ins>
-* We have adopted a central database that adheres to ACID properties.
+* We have adopted shared databases that adhere to ACID properties.
 
 ### Fault Tolerance
 
