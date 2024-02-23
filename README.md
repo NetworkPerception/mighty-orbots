@@ -1,6 +1,10 @@
 # Table of Contents
 - [1.  Welcome to MightyOrbots](#1--welcome-to-mightyorbots)
 - [2.  Problem Space](#2--problem-space)
+   - [2.1 Functional Requirements](#21--functional-requirements)
+   - [2.2 Additional Requirements](#22--additional-requirements)
+   - [2.3 Users and Roles](#23--users-and-roles)
+   - [2.4 Constraints and Assumption](#24--constraints-and-assumptions)
 - [3.  Solution Space](#3--solution-space)
 - [4.  System Architecture: Components](#4--system-architecture-components)
 - [5.  System Architecture: Data Flow](#5--system-architecture-data-flow)
@@ -57,7 +61,7 @@ It should handle peak loads during periods of high patient activity without degr
 Support integration with existing healthcare systems and other medical software solutions.
 Provide APIs or interfaces for interoperability with third-party systems and devices.
 
-## 2.3  Users
+## 2.3  Users and Roles
 
 <p align="center"> <ins><strong>Table: Users and Roles</strong></ins></p>
 
