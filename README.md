@@ -406,8 +406,52 @@ Once a rule is determined to be checked, the Rule Alert Processor will analyze t
 In addition, should UX determine alerts need to be deduped or checked for confirmation, that logic would also be added to the Rule Alert Processor.
 
 ## 6.5  Rules Processing
-> [!NOTE]
-> TBD
+We have provisioned three types of rules on sensor readings that would trigger alerts. Each of these rules is also associated with the patient's sleep/awake status.
+
+### State Trigger
+The state trigger performs an alert when a sensor status changes. Three possible rules are available in a state trigger as depicted below:
+
+![State Trigger](/images/rule_state.png)
+
+**Note**: In addition to the sensor state, there might also be a message or image accompanying the change. This extra data, when available, will be attached to the alert sent.
+
+| Rule Setting | Description|
+|---|---|
+|When sensor state is [...]|Select the status that triggers an alert: <li>**Down**: Trigger an alert if a sensor changes to the Down status.</li><li>**Warning**: Trigger an alert if a sensor changes to the Warning status.</li><li>**Unusual**: Trigger an alert if a sensor changes to the Unusual status.</li><li>**Up**: Trigger an alert if a sensor changes to the Up status.</li><li>**Unknown**: Trigger an alert if a sensor changes to the Unknown status</li>|
+|for at least [...] seconds|Enter the time in seconds before the trigger sends an alert (latency). This can avoid false alarms if, for example, a sensor changes to the Down status for only a few seconds. Enter an integer. Do not define a latency that is shorter than the scanning interval of a sensor that uses this trigger.|
+|perform [...]|Select the alert sent if the sensor is in the selected status and if the defined latency is over.|
+|When sensor state is [...] for at least [...] seconds|Enter the escalation latency in seconds to wait before sending an escalation alert. Use this to escalate an alert automatically if a problem exists for a longer time. Enter an integer.|
+|and repeat every [...] minute|Enter the interval in minutes after which send the escalation alert again. Enter an integer.|
+|When the sensor state is no longer [...] , perform [...]|Select the alert to send if the sensor is no longer in the selected status and the defined latency is over. |
+
+
+
+### Threshold Trigger
+The threshold trigger performs an alert when a sensor reading reaches a specific value.
+
+![Threshold Trigger](/images/rule_threshold.png)
+
+| Rule Setting | Description|
+|---|---|
+|When [sensor data X]|Select the sensor data available for the type of sensor this trigger is associated with. Note: the exact name of the sensor data will be retrieved from the database. 
+|is [...]|Select the condition that triggers the alert from the fixed values below: <li>**Above**: Trigger the alert if the value of the selected sensor data exceeds a defined value.</li><li>**Below**: Trigger the alert if the value of the selected sensor data falls below a defined value.</li><li>**Equal to**: Trigger the alert if the value of the selected sensor data is the same as a defined value.</li><li>**Not equal to**: Trigger the alert if the value of the selected sensor data is different from a defined value.</li>|
+|[value]|Enter the value that compares the sensor data. |
+|for at least [...] seconds|Enter the time in seconds to wait before sending an alert (latency). |
+|perform [...]|Select the alert to send if the defined sensor data condition is true and the defined latency is over. |
+|When the condition clears, perform [...]|Select the alert to send if the defined sensor data condition is no longer true and the defined latency is over. |
+
+
+### Change Trigger
+The change trigger performs an alert when a compatible sensor's value changes.
+
+**Note**: The ECG sensor might be linked to a more elaborate system computing anomalies. These anomalies could be seen as a change triggering an alert.
+
+![Change Trigger](/images/rule_change.png)
+
+
+| Rule Setting | Description|
+|---|---|
+|When the sensor changes, perform [...]|Select the alert to send if a compatible sensor triggers a change alert. |
 
 ## 6.6  Output Generation
 > [!NOTE]
