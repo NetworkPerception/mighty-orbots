@@ -100,9 +100,97 @@ Her work is done around the edges and usually is not horribly time-critical unle
 
 Sarah is responsible for the understanding and upkeep of all of the hospital systems. Since the patient's well-being is involved, she must be 1) available at a moment's notice to troubleshoot and 2) keep the systems working all the time. Her _five-nines_ goal means she is constantly trying to stay ahead of issues and perform maintenance at times that will not stress out the function of systems. She could be notified in a disaster, but she'd prefer to have that situation covered ahead of time and not have to scramble to bring a system back up.
 
+
 ## 3.2  Usage Patterns
+
+When we started designing our solution, we found it important to thoroughly understand how this system would be used. We invested some time to mock up basic UI wireframes. These gave us tangible images that helped us delineate the system's inputs and outputs, clarify data flows, and weigh the impacts of our architecture decisions. Thinking thoroughly about the usage patterns led us to some surprising architecture choices. 
+
+<ins>**Monitoring Screen**:</ins>
+
+We started by imagining the consolidated monitoring screen that is located at each nurse's station. As we designed this image, a few key requirements to our data organization became illuminated. 
+* A **patient** and a **bed** are two distinct data types. The bed represents a physical device that the sensors get plugged into, so we can also call it the in-room **hub**.
+* It was important that a nurse can see the status of each sensor, and the status of one must not affect the availability of any other. This would influence us towards a **microservice** architecture.
+* The alerts must be dismissible, to keep the screen clear. We also felt that a nurse should be able to manually notify a doctor (in addition to automatic notifications). But this got us thinking, what if a nurse hit the wrong button by accident? What if someone wanted to see a previous alert? We realized we needed to keep a **notification history**
+* This screen is quite busy already, and we still have a lot of functionality to support. We decided that the key functionality of this screen is that nurses to get current, helpful information *at a glance*.
+
+![Consolidated Monitoring Screen At Nurses Station.](/images/ui/0-Main_nurses_screen.png)
+
+
+<ins>**Adding the Admin Screen**:</ins>
+
+It is vital that the monitoring screen stays clear and easy to read. But we still have a lot of requirements support: viewing history, setting thresholds, and managing patients. We realized that we needed a second screen at the nurse's station.
+
+With this decision, we were able to start organizing our architecture. We have several requirements that need user input, and we were having a hard time envisioning this in our components diagram. By splitting the screen, we can treat the monitoring screen as a read-only display of data. The new admin screen fields user inputs and pushes them for analysis. We can define the "data administration" component as an input into the analysis component. 
+
+<ins>**Notification History**:</ins>
+
+We saw the need for a notification history from the monitoring screen, and this is the next screen we created. We imagined some useful notifications, and found that they fell into two categories:
+* administrative alerts, which indicate simple status updates: devices disconnecting, patient management
+* threshold alerts, which are complex to compute, and involve multiple reads from the sensor data
+
+This helped us figure out a key requirement for the sensor database. It is critical that nothing impedes the sensors from writing to the sensor input database. We decided to create a separate **alerts database**. We felt that if both sensor input and notifications are trying to write to a database, we could lose data consistency.
+
+Splitting the database allows us to silo the sensor input database to its core purpose: serving many concurrent writes, without a break. All other functionality reads from here, processes the data, and sends it along. This split refined the design of the overall architecture. We created a clear delineation between the sensor database, and the analysis that comes after. 
+
+![Notification History on Admin Screen.](/images/ui/1-admin_screen_notification_history.png)
+
+
+<ins>**Setting Thresholds**:</ins>
+
+After seeing the different notifications,  we started thinking about the functionality required to set thresholds, and the computation needed to generate notifications. We tried to come up with a flexible way to set up thresholds, and called them **rules**. 
+
+Each patient has their own set of rules (there can be a default set). One patient can have many rules, and each patient may have a different set. We realized that there can be thousands of rules at play. We also realized that this is a core functionality that drives the rest of the system forward. We decided to store rules away from sensor input, adding a new table to the alerts database. We decided to create a **rule alert processor**. This processor is multi-threaded and able to run many rule calculations in parallel. 
+
+For us, the idea of rules as a data structure was very powerful. This rule processor is constantly running, ingesting sensor data and creating notifications. We even thought of the screen update to the nurse's monitoring screen as a "notification" created by a rule (When the sensor data has new data, update the screen).
+We realized this is the core of notifying the rest of the system of changes. This led us to accept an **event-driven architecture** for this portion of the system. 
+
 > [!NOTE]
-> TBD
+> The image shows rules based on one sensor at a time, but we will actually need rules that involve multiple sensors. 
+> For example:  Alert the Doctor when heart rate is below 60 bpm, and the patient is not asleep
+
+![Notification Settings.](/images/ui/5-admin_screen_patient_thresholds.png)
+
+
+<ins>**Patients and Beds**:</ins>
+
+We decided that a nurse should be able to add or remove a patient. We imagined that a nurse can get a patient's ID by scanning a hospital bracelet, and assigning them to a bed from this screen. 
+
+A medical professional can create and upload a patient snapshot from here, as well as link to view the patient's history in the 24-Hour History screen. 
+
+While creating these frameworks, we realized it was intuitive to refer to bed numbers in the UI. It is a physical location for a nurse to walk to, and it is easy to read on the screen. It also makes sense with the data: sensors are assigned to beds, and typically stay with those beds. Patients are also assigned to beds. If a patient needs to move to a new bed, we can update that from this screen. 
+
+> [!NOTE]
+>  We refer to **beds** as "in-room **hubs**" elsewhere in the architecture. We assume a hardware hub is kept with a bed, and **bed number** can be thought of as **hub ID.**
+
+Seeing this usage pattern, we made an important architecture decision. Initially, we had considered giving a separate database system for each nurse's station. We considered the scenario where an existing patient moves to a different bed, and realized that the patient might be moved to a different nurse's station. So, we need a central database system, to aggregate a patient's history across any bed they had, and share settings across all stations. 
+
+![Manage Patients.](/images/ui/2-admin_screen_manage_patients.png)
+
+<ins>**Beds and Devices**:</ins>
+
+> [!NOTE]
+>  "Device" is another name for "sensor"
+
+We decided that it will be useful to display the status of all of the sensors that belong to the nurses station. We wanted a screen that communicated both the location of a device, and its availability. From this screen a nurse can see when a device is online, assigned to an unoccupied bed, not assigned, or malfunctioning. 
+
+Devices are assigned to a bed, and  incoming sensor data is tagged by the bed number. If we keep track of the patients assigned to the bed, we can associate the patient to the sensor data. 
+Since we chose an ELT data pipeline, we decided that linking sensor data to a patient is a transformation that happens in analysis. 
+
+![Manage Devices.](/images/ui/3-admin_screen_manage_linked_devices.png)
+
+
+<ins>**Patient History**:</ins>
+
+By the time we got to creating the Patient History wireframe, we had made a lot of important decisions. This usage pattern fit well with the architecture and data flow we designed. The analysis can associate patients to sensor data, and the rules can filter by time range, or vital sign.
+
+However, this did help us refine our components diagram.
+This usage pattern is outside of the event-driven flow that generates output. A doctor or nurse can initiate queries to get aggregated sensor data for their patients. Unlike the notification or screen updates, this is a pull request initiated by the user. 
+
+Unlike the unidirectional flow of data that serves most of the output generation, we need to indicate a component that has a bidirectional flow of data. We called this portion of the architecture the "data administration" and initially pictured it as an input to the analysis. Thinking through this usage pattern, we realized that the component was both input and output. 
+
+![Patient History.](/images/ui/7-admin_screen_view_history.png)
+
+
 
 ## 3.3  Architecture Characteristics
 ### Availability
