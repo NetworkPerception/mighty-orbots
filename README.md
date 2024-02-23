@@ -377,25 +377,22 @@ The database will provide REST APIs for querying and aggregating time series dat
 
 
 ## 6.3  Transformation
+
+<p align="center"> <ins><strong>Figure: Sequence Diagram of the Transformation Component</strong></ins></p>
+
+![Sequence Diagram of the Transformation Component.](/images/Seq-Diagram-Transformation.jpg)
+
 **Objective:** Transform stored monitoring data for display at nurse screens as continuous streams.
 
-**Inputs:**
-
-| Input | Retrieval Process |
-| ------------- | ------------- |
-| All nurse-screen IDs | Event-driven: subscribe to an event that is generated every time there is a change in active nurse screens in the database  |
-| All patient IDs for a specific screen | Database query: a time-based query decided by its business logic |
-
-**Processing available nurse-screens:**
-* This module keeps a local copy of active nurse screen IDs, expected to change infrequently. The transformation module runs concurrent threads to independently read and transform data for each screen.
-* Any change to the set of active nurse screens should be notified to this module. On such a notification, all the nurse-screen threads are restarted.
+**Processing available monitoring screens:**
+* This module keeps a local copy of active monitoring screen IDs. This data is expected to change infrequently and is read in an event-driven manner: the module subscribes to an event that is generated every time there is a change in active nurse screens in the database.
+* The transformation module runs concurrent threads to read and transform data for each screen independently.
+* Any change to the set of active monitoring screens should be notified to this module. On such a notification, all the nurse-screen threads are restarted.
 
 **Data transformation logic:**
 * The primary goal of data transformation is to serve the most recent data to the output generation modules. For this reason, the transformation logic iterates over all patients associated with a specific screen to read and pass data onto the output generation modules.
-* The response time of processing a patient's data is on the order of sub-second. At the same time, a given patient's data is displayed for five seconds. Therefore, it is sufficient to process all patients sequentially and even more suitable for providing the most recent data on screen.
-
-
-![Sequence Diagram of the Transformation Component.](/images/Seq-Diagram-Transformation.jpg)
+* The patient IDs for a specific monitoring screen are retrieved using a time-based query decided by its business logic.
+* The response time of processing a patient's data is in the order of sub-seconds. At the same time, a given patient's data is displayed for five seconds. Therefore, it is sufficient to process all patients sequentially and even more suitable for providing the most recent data on screen.
 
 ## 6.4  Filtering
 > [!NOTE]
