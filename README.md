@@ -16,6 +16,12 @@
    - [5.2 Microservice Descriptions](#52--microservice-descriptions)
    - [5.3 Considered Data Structures](#53--considered-data-structures)
 - [6.  Detailed Architecture](#6--detailed-architecture)
+   - [6.1 Sensor Input](#61--sensor-input)
+   - [6.2 Vital Sign Data Model](#62-vital-sign-data-model)
+   - [6.3 Transformation](#63-transformation)
+   - [6.4 Analysis](#64-analysis)
+   - [6.5 Rules Processing](#65-rules-processing)
+   - [6.6 Output Generation](#66-output-generation)
 - [7.  Architecture Decision Records](#7--architecture-decision-records)
 
 
