@@ -393,11 +393,8 @@ The database will provide REST APIs for querying and aggregating time series dat
 * The patient IDs for a specific monitoring screen are retrieved using a time-based query decided by its business logic.
 * The response time of processing a patient's data is in the order of sub-seconds. At the same time, a given patient's data is displayed for five seconds. Therefore, it is sufficient to process all patients sequentially and even more suitable for providing the most recent data on screen.
 
-## 6.4  Filtering
-> [!NOTE]
-> TBD
 
-## 6.5  Analysis
+## 6.4  Analysis
 The analysis is split into two main microservices, utilizing the rule and vital-sign data to create alerts when applicable.
 
 **Patient Rule Monitor:**
@@ -408,11 +405,11 @@ Once a rule is determined to be checked, the Rule Alert Processor will analyze t
 
 In addition, should UX determine alerts need to be deduped or checked for confirmation, that logic would also be added to the Rule Alert Processor.
 
-## 6.6  Alert Storage
+## 6.5  Rules Processing
 > [!NOTE]
 > TBD
 
-## 6.7  Output Generation
+## 6.6  Output Generation
 > [!NOTE]
 > TBD
 
