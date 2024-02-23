@@ -69,8 +69,11 @@ Provide APIs or interfaces for interoperability with third-party systems and dev
 | Technical System Admin | - Review hardware status<br>- Update software version<br>- Review database health<br>- Review uptime |
 
 ## 2.4  Constraints and Assumptions
-> [!NOTE]
-> TBD
+* We have developed a fault-tolerant and high-availability architecture. At the same time, fully realizing these two properties would require special deployment considerations. For instance, redundancy mechanisms, such as active-active or active-passive configurations, providing failover capabilities to maintain service availability in case of component failures, and business continuity strategies using response and recovery are necessary. However, they are out of scope for the presented architecture.
+* Our architecture has put patient safety at the forefront, which we have realized through data integrity and performance. Additionally, the desired scale of users and data is not in the same order as the Internet scale. These facts and assumptions have led us to deprioritize scalability compared to patient safety.
+We have assumed that the monitoring terminals used by nurses (e.g., for performing real-time tasks) and those used by medical professionals (e.g., for reviewing patient history) will be different.
+* Although we have briefly discussed system administration, it is not the central topic in our architecture. System administration includes reviewing software and hardware health, performing updates, and backing up data.
+* We have assumed that certain data records related to patient, nurse, and medical professional registration will be available to our system through hospital management systems. We have provided specific descriptions of such data records and related assumptions in later sections of this document.
 
 # 3.  Solution Space
 In this section, we describe user personas and usage pattern analysis, which we used to help us make specific architectural choices. Notably, these analyses guided the particular components in our architecture. Subsequently, we specify the priority of order of architectural characteristics, followed by the proposed architectural style.
