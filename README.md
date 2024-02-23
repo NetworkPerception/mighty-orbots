@@ -494,3 +494,6 @@ Consider how a notification makes it to the nurse's screen. The notification iss
 1. [Sensor Hub ADR](/adr/sensor_hub.md)
 2. [Database Choice ADR](/adr/database_choice.md)
 3. [Event Driven Architecture ADR](/adr/event_driven_architecture.md)
+4. The data administration component is an input to analysis ADRs
+   4.1 [Superseded](/adr/data_admin_isinput.md)
+   4.2 [Accepted](/adr/data_admin_isinput_and_output.md)
