@@ -9,7 +9,7 @@
 
 
 # 1.  Welcome to MightyOrbots
-Repository MightyOrbots' solution to O'Reilly 2024 Architectural Kata Challenge.
+Repository for MightyOrbots' solution to O'Reilly 2024 Architectural Katas Challenge.
 
 # 2.  Problem Space
 ## 2.1  Functional Requirements
@@ -69,9 +69,9 @@ Provide APIs or interfaces for interoperability with third-party systems and dev
 | User Role  | Actions |
 | ------------- | ------------- |
 | Nurse | - Add patient<br>- Update patient<br>- Remove patient<br>- View specific patient<br>- View room status<br>- View sensor status<br>- View all patients<br>- Acknowledge notification<br>- Setup notification |
-| Medical Professional | -Generate report<br>- Generate patient history |
+| Medical Professional | - Generate report<br>- Generate patient history |
 | Doctor | - Acknowledge notification<br>- Setup notification  |
-| Technical System Admin | -Review hardware status<br>- Update software version<br>- Review database health<br>- Review uptime |
+| Technical System Admin | - Review hardware status<br>- Update software version<br>- Review database health<br>- Review uptime |
 
 ## 2.5  Constraints and Assumptions
 > [!NOTE]
@@ -112,7 +112,7 @@ Sarah is responsible for the understanding and upkeep of all of the hospital sys
 > TBD
 
 ## 3.3  Architecture Characteristics
-**Availability**
+### Availability
 
 <ins>Reason:</ins>
 As MonitorMe's primary purpose is to monitor patients' vital signs in real time, any system downtime could delay the detection of critical health issues, leading to potential harm or even fatalities for patients. High availability is also needed to ensure that alerts for abnormal conditions are delivered promptly, enabling healthcare providers to respond quickly in emergencies.
@@ -121,7 +121,7 @@ As MonitorMe's primary purpose is to monitor patients' vital signs in real time,
 * We have added provision for load balancing in the data ingestion module.
 * We have adopted Extract-Load-Transform (ELT) architecture.
 
-**Data Integrity**
+### Data Integrity
 
 <ins>Reason:</ins>
 Healthcare decisions and diagnoses rely on accurate and reliable patient data. Therefore, MonitorMe needs high data integrity, meaning the data across the system must be free from incorrect modification and loss.
@@ -129,7 +129,7 @@ Healthcare decisions and diagnoses rely on accurate and reliable patient data. T
 <ins>Impact on Architecture:</ins>
 * We have adopted a central database that adheres to ACID properties.
 
-**Data Consistency**
+### Data Consistency
 
 <ins>Reason:</ins>
 The MonitorMe system must also ensure that the vital sign readings ingested, stored, and displayed reflect the current state of the patient's health. Such consistency is also necessary for informed decision-making and patient safety.
@@ -137,7 +137,7 @@ The MonitorMe system must also ensure that the vital sign readings ingested, sto
 <ins>Impact on Architecture:</ins>
 * We have adopted a central database that adheres to ACID properties.
 
-**Fault Tolerance**
+### Fault Tolerance
 
 <ins>Reason:</ins>
 The MonitorMe system should maintain service while facing failures. The primary failure scenario is when one or more vital sign devices or software components fail. It is essential for the MonitorMe system to still function for monitoring, recording, analyzing, and alerting based on the available data.
@@ -149,7 +149,7 @@ The MonitorMe system should maintain service while facing failures. The primary 
 
 > Note that for MonitorMe to tolerate failures of other hardware and software components, it must consider redundancy and replication at various levels of the system. This requirement could include deploying multiple instances of servers, databases, and other components across different physical locations or availability zones. However, these considerations have little impact on the software architecture. Therefore, we leave the discussion of such deployment considerations to a subsequent section of this document.
 
-**Concurrency**
+### Concurrency
 
 <ins>Reason:</ins>
 MonitorMe needs to read, store, and process data from multiple monitoring sources across multiple patients. Therefore, it is necessary to design components to handle concurrent operations and improve performance.
@@ -157,7 +157,7 @@ MonitorMe needs to read, store, and process data from multiple monitoring source
 <ins>Impact on Architecture:</ins>
 * We have adopted a microservice architecture for data ingestion and analysis components.
 
-**Performance**
+### Performance
 
 <ins>Reason:</ins>
 The system should process both on-demand and continuous requests very quickly. Specifically, as the problem statement states, MonitorMe should send "the data to a consolidated monitoring screen (per nurses station) with an average response time of 1 second or less".
@@ -171,10 +171,10 @@ The system should process both on-demand and continuous requests very quickly. S
 
 
 ## 3.4  Architecture Style
-We recommend a combination of microservice and event-driven architecture styles.
+We recommend **a combination of microservice and event-driven architecture styles**.
 * Microservice architecture will allow keeping services of the system discrete, enabling fault tolerance and high availability.
 * Event-driven architecture will enable real-time capabilities. Various components can subscribe to events and receive them as aynchronous messages. For instance, when vital sign data for a patient is ready for display at a nurse station, it can be delivered to output generation modules via an asynchronous message, allowing a non-blocking output handling.
-* In order to meet the data consistency requirement and minimize data sharing among various microservices, we adopt a single shared database to store patient monitoring data. The central database is also suitable because MonitorMe does not need data isolation or very high scalability.
+* In order to meet the data consistency requirement and minimize data sharing among various microservices, we adopt shared special-purpose databases instead of a separate per-microservice database. These databases will store patient monitoring data, rules on medical readings, and alerts. The shared database style is suitable because MonitorMe needs to prioritize data integrity and consistency over data isolation and high scalability.
 
 # 4.  System Architecture: Components
 
