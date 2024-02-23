@@ -22,6 +22,7 @@
    - [6.4 Analysis](#64--analysis)
    - [6.5 Rules Processing](#65--rules-processing)
    - [6.6 Output Generation](#66--output-generation)
+   - [6.7 Data Administration](#67-data-administration)
 - [7.  Architecture Decision Records](#7--architecture-decision-records)
 
 
