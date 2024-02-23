@@ -512,3 +512,5 @@ Data administratioin is responsible for administrative tasks that require user i
 4. The data administration component is an input to analysis ADRs
    - [Superseded](/adr/data_admin_isinput.md)
    - [Accepted](/adr/data_admin_isinput_and_output.md)
+5. [Sensor Input Data is ELT ADR](/adr/sensor_data_ELT.md)
+
