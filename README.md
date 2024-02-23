@@ -171,6 +171,8 @@ We recommend **a combination of microservice and event-driven architecture style
 
 # 4.  System Architecture: Components
 
+<p align="center"><ins><strong>Figure: Components Diagram</strong></ins></p>
+
 ![Comonent Diagram.](/images/ComponentsDiagram.png)
 
 Based on the [user persona](#31--user-persona-analysis) and [usage patterns](#32--usage-patterns) analyses, we have broken system architecture into four high-level components:
@@ -183,12 +185,16 @@ Based on the [user persona](#31--user-persona-analysis) and [usage patterns](#32
      - Performs real-time analysis to detect abnormalities or threshold violations in vital sign readings, triggering alerts for medical professionals.
 3. **Output Generation**:
      - Responsible for presenting the processed vital sign data to various output receivers in a user-friendly format.
-     - Includes functionalities such as displaying vital signs on monitoring screens at nurses' stations, generating historical reports, and sending alerts to medical staff.
+     - Includes functionalities such as displaying vital signs on monitoring screens at nurses' stations and sending alerts to medical staff.
 4. **Data Administration**:
      - Enter metadata such as thresholds and rules for generating alerts on vital sign signals.
      - Generate on-demand data snapshots and reports.
+     - Generate historical reports.
 
 # 5.  System Architecture: Data Flow
+
+<p align="center"><ins><strong>Figure: Data Flow Diagram</strong></ins></p>
+
 ![Data Flow Diagram.](/images/DataFlowDiagram.png)
 
 ## 5.1  Data Flow
