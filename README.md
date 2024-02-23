@@ -59,6 +59,8 @@ Provide APIs or interfaces for interoperability with third-party systems and dev
 
 ## 2.3  Users
 
+<p align="center"> <ins><strong>Table: Users and Roles</strong></ins></p>
+
 | User Role  | Actions |
 | ------------- | ------------- |
 | Nurse | - Add patient<br>- Update patient<br>- Remove patient<br>- View specific patient<br>- View room status<br>- View sensor status<br>- View all patients<br>- Acknowledge notification<br>- Setup notification |
@@ -189,7 +191,6 @@ This usage pattern is outside of the event-driven flow that generates output. A 
 Unlike the unidirectional flow of data that serves most of the output generation, we need to indicate a component that has a bidirectional flow of data. We called this portion of the architecture the "data administration" and initially pictured it as an input to the analysis. Thinking through this usage pattern, we realized that the component was both input and output. 
 
 ![Patient History.](/images/ui/7-admin_screen_view_history.png)
-
 
 
 ## 3.3  Architecture Characteristics
@@ -330,6 +331,8 @@ Based on the [user persona](#31--user-persona-analysis) and [usage patterns](#32
 * In addition, as many sensor types must be supported.
 * All of the requested data is simple, other than ECG.
 
+<p align="center"> <ins><strong>Table: Sensor Input Structure</strong></ins></p>
+
 | Sensor Type | Update Interval | Data Size | Data Type |
 | ------------- | ------------- | ------------- | ------------- |
 | Heart rate | .5 seconds | 1 byte | int |
@@ -345,7 +348,7 @@ Based on the [user persona](#31--user-persona-analysis) and [usage patterns](#32
 
 The data is then pushed into the Vital-Sign Data Storage to be used by further steps.
 
-## 6.2  Vital-Sign Data Model
+## 6.2  Vital Sign Data Model
 ### Schema
 
 <p align="center"> <ins><strong>Figure: Time Series Data Model</strong></ins> </p>
