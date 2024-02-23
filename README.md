@@ -262,14 +262,14 @@ The data is then pushed into the Vital-Sign Data Storage to be used by further s
 ## 6.2  Vital-Sign Data Model
 ### Schema
 
-<p align="center"> <ins>Figure: Time Series Data Model</ins> </p>
+<p align="center"> <ins><strong>Figure: Time Series Data Model</strong></ins> </p>
 
 ![Vital Sign Data Model](/images/vital_sign_data_model.png)
 
 
 As depicted in the schema diagram above, the vital signs are stored in a time series database using *tags* representing different sensor types. Specifically, a record in this database is comprised of one tag name, multiple data points, and multiple attributes. A data point constitutes a timestamp and measurement. Finally, the attributes are key-value pairs describing various sensor-specific details. Note that some sensors, like the ECG, are more complex than others and need additional attributes.
 
-<p align="center"> <ins>Table: Time Series Data Schema</ins></p>
+<p align="center"> <ins><strong>Table: Time Series Data Schema</strong></ins></p>
 
 | Term | Required | Definition |
 | ------------- | ---------- | ---------- |
