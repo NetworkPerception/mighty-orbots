@@ -57,14 +57,7 @@ It should handle peak loads during periods of high patient activity without degr
 Support integration with existing healthcare systems and other medical software solutions.
 Provide APIs or interfaces for interoperability with third-party systems and devices.
 
-
-## 2.3  System Requirements
-> [!NOTE]
-> TBD
-* Data acquisition may involve protocols like Bluetooth, Wi-Fi, or specialized medical device interfaces to communicate with the monitoring equipment.
-* 
-
-## 2.4  Users
+## 2.3  Users
 
 | User Role  | Actions |
 | ------------- | ------------- |
@@ -73,7 +66,7 @@ Provide APIs or interfaces for interoperability with third-party systems and dev
 | Doctor | - Acknowledge notification<br>- Setup notification  |
 | Technical System Admin | - Review hardware status<br>- Update software version<br>- Review database health<br>- Review uptime |
 
-## 2.5  Constraints and Assumptions
+## 2.4  Constraints and Assumptions
 > [!NOTE]
 > TBD
 
