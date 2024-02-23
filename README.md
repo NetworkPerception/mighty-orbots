@@ -294,7 +294,6 @@ Based on the [user persona](#31--user-persona-analysis) and [usage patterns](#32
 5. A pool of rule monitors is watching the sensor database, querying repeatedly based on all of the rules in the rule database. When a complete new set of rule data is found, it creates a rule task.
 6. Either on demand or from a pool, a rule alert processor takes the task and sees if the current sensor data triggers the rule. If it does, it triggers an alert.
 7. Notification issuer is watching alert database. When one comes in, it looks up rule, gets notification and UI/text information and creates the needed output to cause events (fires data to nurses station, triggers notification on screen, etc.)
-8. NOTE: under this setup, it is possible a rule could be created to just update the Coordinated Station screen.
 
 ## 5.2  Microservice Descriptions
 
