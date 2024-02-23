@@ -12,6 +12,9 @@
    - [3.4 Architecture Style](#34--architecture-style)
 - [4.  System Architecture: Components](#4--system-architecture-components)
 - [5.  System Architecture: Data Flow](#5--system-architecture-data-flow)
+   - [5.1 Data Flow](#51--data-flow)
+   - [5.2 Microservice Descriptions](#52--microservice-descriptions)
+   - [5.3 Considered Data Structures](#53--considered-data-structures)
 - [6.  Detailed Architecture](#6--detailed-architecture)
 - [7.  Architecture Decision Records](#7--architecture-decision-records)
 
