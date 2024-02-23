@@ -105,7 +105,7 @@ Sarah is responsible for the understanding and upkeep of all of the hospital sys
 
 When we started designing our solution, we found it important to thoroughly understand how this system would be used. We invested some time to mock up basic UI wireframes. These gave us tangible images that helped us delineate the system's inputs and outputs, clarify data flows, and weigh the impacts of our architecture decisions. Thinking thoroughly about the usage patterns led us to some surprising architecture choices. 
 
-<ins>**Monitoring Screen**:</ins>
+### Monitoring Screen
 
 We started by imagining the consolidated monitoring screen that is located at each nurse's station. As we designed this image, a few key requirements to our data organization became illuminated. 
 * A **patient** and a **bed** are two distinct data types. The bed represents a physical device that the sensors get plugged into, so we can also call it the in-room **hub**.
@@ -116,13 +116,13 @@ We started by imagining the consolidated monitoring screen that is located at ea
 ![Consolidated Monitoring Screen At Nurses Station.](/images/ui/0-Main_nurses_screen.png)
 
 
-<ins>**Adding the Admin Screen**:</ins>
+## Adding the Admin Screen
 
 It is vital that the monitoring screen stays clear and easy to read. But we still have a lot of requirements support: viewing history, setting thresholds, and managing patients. We realized that we needed a second screen at the nurse's station.
 
 With this decision, we were able to start organizing our architecture. We have several requirements that need user input, and we were having a hard time envisioning this in our components diagram. By splitting the screen, we can treat the monitoring screen as a read-only display of data. The new admin screen fields user inputs and pushes them for analysis. We can define the "data administration" component as an input into the analysis component. 
 
-<ins>**Notification History**:</ins>
+### Notification History
 
 We saw the need for a notification history from the monitoring screen, and this is the next screen we created. We imagined some useful notifications, and found that they fell into two categories:
 * administrative alerts, which indicate simple status updates: devices disconnecting, patient management
@@ -135,7 +135,7 @@ Splitting the database allows us to silo the sensor input database to its core p
 ![Notification History on Admin Screen.](/images/ui/1-admin_screen_notification_history.png)
 
 
-<ins>**Setting Thresholds**:</ins>
+### Setting Thresholds
 
 After seeing the different notifications,  we started thinking about the functionality required to set thresholds, and the computation needed to generate notifications. We tried to come up with a flexible way to set up thresholds, and called them **rules**. 
 
@@ -151,7 +151,7 @@ We realized this is the core of notifying the rest of the system of changes. Thi
 ![Notification Settings.](/images/ui/5-admin_screen_patient_thresholds.png)
 
 
-<ins>**Patients and Beds**:</ins>
+### Patients and Beds
 
 We decided that a nurse should be able to add or remove a patient. We imagined that a nurse can get a patient's ID by scanning a hospital bracelet, and assigning them to a bed from this screen. 
 
@@ -166,7 +166,7 @@ Seeing this usage pattern, we made an important architecture decision. Initially
 
 ![Manage Patients.](/images/ui/2-admin_screen_manage_patients.png)
 
-<ins>**Beds and Devices**:</ins>
+### Beds and Devices
 
 > [!NOTE]
 >  "Device" is another name for "sensor"
@@ -179,7 +179,7 @@ Since we chose an ELT data pipeline, we decided that linking sensor data to a pa
 ![Manage Devices.](/images/ui/3-admin_screen_manage_linked_devices.png)
 
 
-<ins>**Patient History**:</ins>
+### Patient History
 
 By the time we got to creating the Patient History wireframe, we had made a lot of important decisions. This usage pattern fit well with the architecture and data flow we designed. The analysis can associate patients to sensor data, and the rules can filter by time range, or vital sign.
 
