@@ -476,3 +476,4 @@ Consider how a notification makes it to the nurse's screen. The notification iss
 # 7.  Architecture Decision Records
 1. [Sensor Hub ADR](/adr/sensor_hub.md)
 2. [Database Choice ADR](/adr/database_choice.md)
+3. [Event Driven Architecture ADR](/adr/event_driven_architecture.md)
