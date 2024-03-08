@@ -496,7 +496,7 @@ Consider how a notification makes it to the nurse's screen. The notification iss
 ## 6.7  Data Administration
 This component of the system is a more traditional, CRUD-style model. 
 
-Data administratioin is responsible for administrative tasks that require user input:
+Data administration is responsible for administrative tasks that require user input:
 
 * adding, updating, removing patients and devices
 * settings, rules, and thresholds 
