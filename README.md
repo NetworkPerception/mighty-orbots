@@ -24,6 +24,7 @@
    - [6.6 Output Generation](#66--output-generation)
    - [6.7 Data Administration](#67--data-administration)
 - [7.  Architecture Decision Records](#7--architecture-decision-records)
+- [8.  Final Solution Presentation](#8--final-solution-presentation)
 
 
 # 1.  Welcome to MightyOrbots
@@ -514,3 +515,5 @@ Data administration is responsible for administrative tasks that require user in
    - [Accepted](/adr/data_admin_isinput_and_output.md)
 5. [Sensor Input Data is ELT ADR](/adr/sensor_data_ELT.md)
 
+# 8.  Final Solution Presentation
+Link to the presenation video: https://drive.google.com/file/d/14SDIM7c3QJnIW0GJh1p12HxWxfvVd6-m/view?usp=sharing
