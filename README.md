@@ -28,7 +28,7 @@
 
 
 # 1.  Welcome to MightyOrbots
-Repository for MightyOrbots' solution to O'Reilly 2024 Architectural Katas Challenge.
+Repository for MightyOrbots' solution to O'Reilly 2024 Architectural Katas Challenge. A copy of problem statement is linked [here](https://github.com/NetworkPerception/mighty-orbots/blob/main/2024_kata_problem.pdf).
 
 # 2.  Problem Space
 ## 2.1  Functional Requirements
