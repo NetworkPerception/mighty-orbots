@@ -25,10 +25,11 @@
    - [6.7 Data Administration](#67--data-administration)
 - [7.  Architecture Decision Records](#7--architecture-decision-records)
 - [8.  Final Solution Presentation](#8--final-solution-presentation)
+- [A.  Contest Result](#a--contest-result)
 
 
 # 1.  Welcome to MightyOrbots
-Repository for MightyOrbots' solution to O'Reilly 2024 Architectural Katas Challenge. A copy of problem statement is linked [here](https://github.com/NetworkPerception/mighty-orbots/blob/main/2024_kata_problem.pdf).
+This repository contains MightyOrbots' solution to O'Reilly 2024 Architectural Katas Challenge. A copy of the problem statement is linked [here](https://github.com/NetworkPerception/mighty-orbots/blob/main/2024_kata_problem.pdf).
 
 # 2.  Problem Space
 ## 2.1  Functional Requirements
@@ -517,3 +518,9 @@ Data administration is responsible for administrative tasks that require user in
 
 # 8.  Final Solution Presentation
 Link to the presenation video: https://drive.google.com/file/d/14SDIM7c3QJnIW0GJh1p12HxWxfvVd6-m/view?usp=sharing
+
+# A.  Contest Result
+> [!IMPORTANT]
+> In the [results](https://github.com/TheKataLog#win24) annouced on March 12, 2024, our entry was selected as the winner at 2nd position.
+
+![winner_2nd_place](https://github.com/NetworkPerception/mighty-orbots/assets/160177072/a2433057-5f7e-4645-94a1-60994f860a25)
